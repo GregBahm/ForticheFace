@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/NuitrackSDK/Tutorials/Avatar Animation/Scenes/RiggedModel2.unity
+    guid: 9ebf8f0b560a9154a9153eba2b455ae9
   m_configObjects: {}
