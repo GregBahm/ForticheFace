@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6749cca2b0c573b439447db25181e9a9, type: 3}
+        m_Texture: {fileID: 2800000, guid: b34b30bc69d7e2d40899940c3521aac0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -59,6 +59,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecMap:
+        m_Texture: {fileID: 2800000, guid: d717d292c480d16459f0e500a1bbac68, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
@@ -73,6 +77,9 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
+    - _SpecHigh: 1
+    - _SpecLow: 50
+    - _SpecRamp: 50
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -80,6 +87,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShineColor: {r: 0.11565503, g: 0.21698111, b: 0.1801636, a: 1}
+    - _ShineColor: {r: 0.4292453, g: 1, b: 0.76065123, a: 1}
     - _ShineColorB: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
