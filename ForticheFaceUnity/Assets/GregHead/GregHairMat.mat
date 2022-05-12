@@ -79,7 +79,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecHigh: 1
     - _SpecLow: 50
-    - _SpecRamp: 5.06
+    - _SpecRamp: 11.5
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -87,6 +87,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShineColor: {r: 0.2830189, g: 0.16557789, b: 0.057404775, a: 1}
+    - _ShineColor: {r: 0.014195444, g: 0.21141182, b: 0.2735849, a: 1}
     - _ShineColorB: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
