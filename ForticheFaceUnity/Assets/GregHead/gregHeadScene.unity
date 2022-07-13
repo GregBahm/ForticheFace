@@ -652,6 +652,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bc07d5e42982ed5478d4b32ca467ab50, type: 2}
+    - target: {fileID: 2868223772441435339, guid: 3907758b9f519374e9400448d619b310, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c67db936792ed64489064cd84b331d4c, type: 2}
     - target: {fileID: 6366612082370582890, guid: 3907758b9f519374e9400448d619b310, type: 3}
       propertyPath: m_Name
       value: Hands
