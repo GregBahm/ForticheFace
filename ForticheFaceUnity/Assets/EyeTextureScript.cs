@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadScript : MonoBehaviour
+public class EyeTextureScript : MonoBehaviour
 {
     [SerializeField]
     private SkinnedMeshRenderer headRenderer;

@@ -205,7 +205,7 @@ Shader "Unlit/BeardShader"
                 shade = pow(shade, 2);
                 float beardAlpha = tex2D(_BeardAlpha, i.uv).x;
                 float beardNoise = tex2D(_BeardNoise, i.uv * 4).x;
-                beardNoise = pow(beardNoise, 4);
+                beardNoise = pow(beardNoise, 4) * 2;
                 beardAlpha *= beardNoise;
                 float lengthAlpha = 1 - pow(i.dist, .5);
                 beardAlpha *= lengthAlpha;
