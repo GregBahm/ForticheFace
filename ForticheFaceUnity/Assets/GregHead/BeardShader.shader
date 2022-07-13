@@ -9,7 +9,9 @@ Shader "Unlit/BeardShader"
         _BeardHighColor("Beard High Color", Color) = (1,1,1,1)
         _BeardLowColor("Beard Low Color", Color) = (1,1,1,1)
         _ShineColor("Shine Color", Color) = (1,1,1,1)
+        _BeardShineColor("Beard Shine Color", Color) = (1,1,1,1)
         _SpecRamp("Spec Ramp", Float) = 50
+        _BeardSpecRamp("Beard Spec Ramp", Float) = 50
         _Depth("Depth", Range(0, .001)) = .0005
     }
     SubShader
@@ -97,6 +99,11 @@ Shader "Unlit/BeardShader"
             #pragma geometry geo
             #pragma fragment frag
             #pragma target 4.5
+            #pragma multi_compile_fwdbase
+
+          #include "UnityCG.cginc"
+          #include "UnityLightingCommon.cginc"
+          #include "AutoLight.cginc"
 
             #define SliceCount 16
             float _Depth;
@@ -104,8 +111,10 @@ Shader "Unlit/BeardShader"
             sampler2D _BeardAlpha;
             sampler2D _BeardNoise;
             float _BeardBaseAlpha;
+            fixed4 _BeardShineColor;
             fixed4 _BeardHighColor;
             fixed4 _BeardLowColor;
+            float _BeardSpecRamp;
 
             struct appdata
             {
@@ -119,6 +128,8 @@ Shader "Unlit/BeardShader"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 float3 normal : NORMAL;
+                float3 worldNormal : TEXCOORD2;
+                float3 viewDir : TEXCOORD1;
             };
 
             struct g2f
@@ -127,6 +138,9 @@ Shader "Unlit/BeardShader"
                 float4 pos : SV_POSITION;
                 float dist : TEXCOORD3;
                 float3 normal : NORMAL;
+                float3 viewDir : TEXCOORD1;
+                float3 worldNormal : TEXCOORD2;
+                SHADOW_COORDS(4)
             };
 
             v2g vert(appdata v)
@@ -135,6 +149,8 @@ Shader "Unlit/BeardShader"
                 o.uv = v.uv;
                 o.vertex = v.vertex;
                 o.normal = v.normal;
+                o.worldNormal = mul(unity_ObjectToWorld, v.normal);
+                o.viewDir = WorldSpaceViewDir(v.vertex);
                 return o;
             }
 
@@ -145,22 +161,28 @@ Shader "Unlit/BeardShader"
                 o.normal = p[0].normal;
                 o.dist = dist;
                 o.uv = p[0].uv;
+                o.viewDir = p[0].viewDir;
+                o.worldNormal = p[0].worldNormal;
                 o.pos = UnityObjectToClipPos(p[0].vertex + float4(vertOffset, 0));
-                //TRANSFER_SHADOW(o)
+                TRANSFER_SHADOW(o)
                 triStream.Append(o);
 
                 vertOffset = p[1].normal * offset;
                 o.normal = p[1].normal;
                 o.uv = p[1].uv;
+                o.viewDir = p[1].viewDir;
+                o.worldNormal = p[1].worldNormal;
                 o.pos = UnityObjectToClipPos(p[1].vertex + float4(vertOffset, 0));
-                //TRANSFER_SHADOW(o)
+                TRANSFER_SHADOW(o)
                 triStream.Append(o);
 
                 vertOffset = p[2].normal * offset;
                 o.normal = p[2].normal;
                 o.uv = p[2].uv;
+                o.viewDir = p[2].viewDir;
+                o.worldNormal = p[2].worldNormal;
                 o.pos = UnityObjectToClipPos(p[2].vertex + float4(vertOffset, 0));
-                //TRANSFER_SHADOW(o)
+                TRANSFER_SHADOW(o)
                 triStream.Append(o);
             }
 
@@ -188,6 +210,21 @@ Shader "Unlit/BeardShader"
                 float lengthAlpha = 1 - pow(i.dist, .5);
                 beardAlpha *= lengthAlpha;
                 float3 beardColor = lerp(_BeardLowColor, _BeardHighColor, shade);
+
+
+                float3 viewDir = normalize(i.viewDir);
+                float3 norm = normalize(i.worldNormal);
+
+                float3 lightReflect = reflect(-_WorldSpaceLightPos0.xyz, norm);
+                float theDot = dot(lightReflect, viewDir);
+                float shine = saturate(theDot);
+
+                half shadow = SHADOW_ATTENUATION(i);
+                shine = pow(shine, _BeardSpecRamp);
+                shine = saturate(shine * 3);
+                shine *= shadow;
+                beardColor += shine * _BeardShineColor.xyz;
+
                 return float4(beardColor, _BeardBaseAlpha * beardAlpha);
             }
             ENDCG
