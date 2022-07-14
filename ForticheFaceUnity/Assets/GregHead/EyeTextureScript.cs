@@ -44,23 +44,6 @@ public class EyeTextureScript : MonoBehaviour
         lookRight = new EyeBlendPair(GetBlendIndex("Eye_Look_Out_Left"), GetBlendIndex("Eye_Look_In_Right"));
     }
 
-    private class EyeBlendPair
-    {
-        public int Left { get; }
-        public int Right { get; }
-        public EyeBlendPair(int left, int right)
-        {
-            Left = left; 
-            Right = right; 
-        }
-
-        public void ApplyBlend(SkinnedMeshRenderer renderer, float blendPower)
-        {
-            renderer.SetBlendShapeWeight(Left, blendPower * 100);
-            renderer.SetBlendShapeWeight(Right, blendPower * 100);
-        }
-    }
-
     private void Update()
     {
         SetEyeTransforms();
@@ -108,5 +91,22 @@ public class EyeTextureScript : MonoBehaviour
             }
         }
         throw new InvalidOperationException();
+    }
+
+    private class EyeBlendPair
+    {
+        public int Left { get; }
+        public int Right { get; }
+        public EyeBlendPair(int left, int right)
+        {
+            Left = left;
+            Right = right;
+        }
+
+        public void ApplyBlend(SkinnedMeshRenderer renderer, float blendPower)
+        {
+            renderer.SetBlendShapeWeight(Left, blendPower * 100);
+            renderer.SetBlendShapeWeight(Right, blendPower * 100);
+        }
     }
 }

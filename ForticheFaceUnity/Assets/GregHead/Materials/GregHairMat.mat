@@ -102,7 +102,7 @@ Material:
     - _BeardShineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HairShineColor: {r: 0.23584908, g: 0.15853637, b: 0.11681204, a: 1}
+    - _HairShineColor: {r: 0.2735849, g: 0.091194965, b: 0, a: 1}
     - _HairShineDir: {r: 0.23, g: -1, b: 0.3, a: 1}
     - _ShineColor: {r: 0.014195444, g: 0.21141182, b: 0.2735849, a: 1}
     - _ShineColorB: {r: 1, g: 1, b: 1, a: 1}

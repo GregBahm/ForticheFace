@@ -84,6 +84,9 @@ Shader "Unlit/HairShader"
                 float aniso = abs(.55 - theHairDot);
                 aniso = saturate(1 - aniso);
                 aniso = pow(aniso, 5);
+                float aniso2 = saturate(aniso * 1.2);
+
+                aniso2 *= saturate(hairNorm.y + .5);
                 aniso *= saturate(hairNorm.y + .5);
 
                 shine = pow(shine, _SpecRamp);
@@ -91,7 +94,9 @@ Shader "Unlit/HairShader"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col += shine * _ShineColor * shadow;
 
-                col += _HairShineColor * aniso;
+                float4 hairCol = lerp(_HairShineColor, .3, aniso2 * .7);
+                col += hairCol * max(aniso, aniso2);
+                //col += aniso2 * .2;
 
                 return col;
             }
