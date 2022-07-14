@@ -64,7 +64,7 @@ Shader "Unlit/GlassesShader"
                 half4 env = texCUBE(_Cube, -reflectedDir);
                 float brightness = (env.x + env.y + env.z) * .333;
                 brightness = pow(brightness, 2 - i.rim * 2);
-                float4 ret = float4(env.rgb, brightness);
+                float4 ret = float4(env.rgb, brightness *.5);
                 return ret;
             }
             ENDCG

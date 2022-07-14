@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GregHairMat
-  m_Shader: {fileID: 4800000, guid: 40af9506ab90a3f418d289f18a3cf6eb, type: 3}
+  m_Shader: {fileID: 4800000, guid: e56c700bd19d9154887fe2004547493a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -102,6 +102,8 @@ Material:
     - _BeardShineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HairShineColor: {r: 0.23584908, g: 0.15853637, b: 0.11681204, a: 1}
+    - _HairShineDir: {r: 0.23, g: -1, b: 0.3, a: 1}
     - _ShineColor: {r: 0.014195444, g: 0.21141182, b: 0.2735849, a: 1}
     - _ShineColorB: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
