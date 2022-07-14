@@ -382,6 +382,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68256c179b7d5d741bb766d90fd89420, type: 2}
     - target: {fileID: -2412664233778783130, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -782,6 +790,10 @@ PrefabInstance:
     - target: {fileID: -6963307914445624708, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Name
       value: shock
+      objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2412664233778783130, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1275,6 +1287,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: smile
       objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2412664233778783130, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1637,6 +1653,10 @@ PrefabInstance:
     - target: {fileID: -6963307914445624708, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Name
       value: pout
+      objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2412664233778783130, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2016,6 +2036,10 @@ PrefabInstance:
     - target: {fileID: -6963307914445624708, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Name
       value: attentive
+      objectReference: {fileID: 0}
+    - target: {fileID: -6129636701782429834, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2412664233778783130, guid: 991139f3d1e94824abcb83f278e66950, type: 3}
       propertyPath: m_Materials.Array.data[0]
