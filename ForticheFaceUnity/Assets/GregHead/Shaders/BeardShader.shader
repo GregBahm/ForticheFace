@@ -11,6 +11,7 @@ Shader "Unlit/BeardShader"
         _BeardLowColor("Beard Low Color", Color) = (1,1,1,1)
         _ShineColor("Shine Color", Color) = (1,1,1,1)
         _BeardShineColor("Beard Shine Color", Color) = (1,1,1,1)
+        _BeardUndercolor("Beard Undercolor", Color) = (1,1,1,1)
         _SpecRamp("Spec Ramp", Float) = 50
         _BeardSpecRamp("Beard Spec Ramp", Float) = 50
         _Depth("Depth", Range(0, .001)) = .0005
@@ -53,6 +54,9 @@ Shader "Unlit/BeardShader"
             sampler2D _MainTex;
             fixed4 _ShineColor;
             float _SpecRamp;
+            sampler2D _BeardAlpha;
+            float _BeardBaseAlpha;
+            fixed4 _BeardUndercolor;
 
             v2f vert (appdata v)
             {
@@ -83,6 +87,8 @@ Shader "Unlit/BeardShader"
                 shine = pow(shine, _SpecRamp);
                 shine = saturate(shine * 3);
                 fixed4 col = tex2D(_MainTex, i.uv);
+                fixed beardAlpha = tex2D(_BeardAlpha, i.uv);
+                col = lerp(col, _BeardUndercolor, beardAlpha * _BeardBaseAlpha);
                 col += shine * _ShineColor * shadow;
                 return col;
             }

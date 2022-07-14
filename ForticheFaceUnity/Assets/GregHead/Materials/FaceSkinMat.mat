@@ -102,6 +102,7 @@ Material:
     - _BeardHighColor: {r: 1, g: 0.8066401, b: 0.6556604, a: 1}
     - _BeardLowColor: {r: 0.0754717, g: 0.010917288, b: 0.008899963, a: 1}
     - _BeardShineColor: {r: 0.27647737, g: 0.4716682, b: 0.5377358, a: 1}
+    - _BeardUndercolor: {r: 0.34442863, g: 0.47106236, b: 0.5660378, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 0.17795478, g: 0.4056604, b: 0.30978432, a: 1}
