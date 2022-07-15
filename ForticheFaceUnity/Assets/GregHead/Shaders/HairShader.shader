@@ -95,8 +95,13 @@ Shader "Unlit/HairShader"
                 col += shine * _ShineColor * shadow;
 
                 float4 hairCol = lerp(_HairShineColor, .3, aniso2 * .7);
-                col += hairCol * max(aniso, aniso2);
-                //col += aniso2 * .2;
+                float hairShineAlpha = max(aniso, aniso2);
+                //float fresnel = dot(norm, viewDir);
+                //fresnel = saturate(fresnel);
+                //fresnel = 1 - pow(1 - fresnel, 2); 
+                //hairShineAlpha *= fresnel;
+                col += hairCol * hairShineAlpha;
+
 
                 return col;
             }
