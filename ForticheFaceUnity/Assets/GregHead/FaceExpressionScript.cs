@@ -36,7 +36,7 @@ public class FaceExpressionScript : MonoBehaviour
         table.Add(Expression.Shock, new ExpressionMap(ShockTarget));
     }
 
-    private void Update()
+    public void UpdateFaceExpressions()
     {
         table[CurrentExpression].Set(currentValues, Snap, Decay);
 
