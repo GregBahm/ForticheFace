@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MouthInterior
+    second: {fileID: 2100000, guid: 3495c054d469f2542a6c7b6de966e314, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Teeth
+    second: {fileID: 2100000, guid: 875f9dde9c9f3794899da71ff5fbbd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TheMat
+    second: {fileID: 2100000, guid: 63c3775c91775224882c66e373983272, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
