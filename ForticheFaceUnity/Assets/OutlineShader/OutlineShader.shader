@@ -3,9 +3,7 @@
 	Properties
 	{
 		_MainTex("Main Tex", 2D) = "black" {}
-		_OutlineColor("Outline COlor", Color) = (1,1,1,1)
-		_OutlineHigh("Outline High", Range(0,1)) = 0.75
-		_OutlineLow("Outline Lowt", Range(0,1)) = 0
+		_OutlineColor("Outline Color", Color) = (1,1,1,1)
 	}
 	SubShader
 	{
@@ -41,19 +39,18 @@
 
 			sampler2D _MainTex;
 			sampler2D _FullBlurredTexture;
-			float _OutlineHigh;
-			float _OutlineLow;
 			float4 _OutlineColor;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 base = tex2D(_MainTex, i.uv);
 				fixed4 outlineSource = tex2D(_FullBlurredTexture, i.uv);
-				//float alpha = 1 - abs(outlineSource.x - .5) * 2;
-				//alpha = pow(alpha * 2, 2);
-				float alpha = pow(outlineSource.x * 5, 5);
+				float alpha = 1 - abs(outlineSource.x - .5) * 2;
+				alpha = pow(alpha * 2, 2);
+				//float alpha = pow(outlineSource.x * 5, 5);
 				alpha = saturate(alpha) - saturate(base.a);
-                return lerp(base, _OutlineColor, alpha * _OutlineColor.a);
+				alpha *= 1 - i.uv.x;
+                return lerp(base, _OutlineColor, saturate(alpha * _OutlineColor.a));
 			}
 			ENDCG
 		}

@@ -7,11 +7,6 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Camera))]
 public class OutlineScript : MonoBehaviour
 {
-    [Range(0,1)]
-    public float OutlineHigh = 0.75f;
-    [Range(0, 1)]
-    public float OutlineLow = 0;
-
     public Color OutlineColor = Color.white;
     
     public Material OutlineAlphaMat;
@@ -20,22 +15,44 @@ public class OutlineScript : MonoBehaviour
     private Camera theCamera;
     private CommandBuffer command;
 
-    public GameObject[] ObjectsToOutline;
+    public MeshRenderer[] StaticObjectsToOutline;
+    public SkinnedMeshRenderer[] SkinnedObjectsToOutline;
 
     private void Start()
     {
         theCamera = GetComponent<Camera>();
-        UpdateOutlineTarget(ObjectsToOutline);
+        AddOutlineCommandBuffer();
     }
 
     private void Update()
     {
-        OutlineMat.SetFloat("_OutlineHigh", OutlineHigh);
-        OutlineMat.SetFloat("_OutlineLow", OutlineLow);
         OutlineMat.SetColor("_OutlineColor", OutlineColor);
     }
 
-    public void UpdateOutlineTarget(GameObject[] objectsToOutline)
+    private void RegisterStaticObjects()
+    {
+        foreach (MeshRenderer renderer in StaticObjectsToOutline)
+        {
+            Mesh mesh = renderer.gameObject.GetComponent<MeshFilter>().mesh;
+            for (int i = 0; i < mesh.subMeshCount; i++)
+            {
+                command.DrawRenderer(renderer, OutlineAlphaMat, i);
+            }
+        }
+    }
+
+    private void RegisterSkinnedObjects()
+    {
+        foreach (SkinnedMeshRenderer renderer in SkinnedObjectsToOutline)
+        {
+            for (int i = 0; i < renderer.sharedMesh.subMeshCount; i++)
+            {
+                command.DrawRenderer(renderer, OutlineAlphaMat, i);
+            }
+        }
+    }
+
+    public void AddOutlineCommandBuffer()
     {
         if(command != null)
         {
@@ -44,6 +61,7 @@ public class OutlineScript : MonoBehaviour
         }
 
         command = new CommandBuffer();
+        command.name = "Outline";
 
         int outlineTextureAlpha = Shader.PropertyToID("_OutlineTextureAlpha");
         int horizontalBlurredTexture = Shader.PropertyToID("_HorizontalBlurredTexture");
@@ -57,11 +75,8 @@ public class OutlineScript : MonoBehaviour
         command.SetRenderTarget(identifier);
 
         command.ClearRenderTarget(false, true, Color.black);
-        foreach (GameObject obj in objectsToOutline)
-        {
-            Renderer renderer = obj.GetComponent<Renderer>();
-            command.DrawRenderer(renderer, OutlineAlphaMat);
-        }
+        RegisterStaticObjects();
+        RegisterSkinnedObjects();
 
         command.SetGlobalVector("_UvKey", new Vector2(1, 0));
         command.Blit(outlineTextureAlpha, horizontalBlurredTexture, BlurMat);

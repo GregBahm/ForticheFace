@@ -39,10 +39,10 @@
 			sampler2D _MainTex;
 			float2 _UvKey;
 
-			fixed4 frag (v2f i) : SV_Target
-			{ 
+			fixed4 frag(v2f i) : SV_Target
+			{
 				float4 ret = 0;
-				const int steps = 7;
+				const int steps = 4;
 
 				for (int step = -steps; step <= steps; step++)
 				{
