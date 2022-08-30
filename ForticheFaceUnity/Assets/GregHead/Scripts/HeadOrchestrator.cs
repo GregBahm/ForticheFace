@@ -26,11 +26,16 @@ public class HeadOrchestrator : MonoBehaviour
 
     private void Update()
     {
-        faceExpression.DoUpdate(); // Needs to go first because it stomps all other blends
-        bodyMotion.DoUpdate();
-        blink.DoUpdate();
-        eyeGaze.DoUpdate();
-        lipFlap.DoUpdate();
+        if(faceExpression.isActiveAndEnabled)
+            faceExpression.DoUpdate(); // Needs to go first because it stomps all other blends
+        if(bodyMotion.isActiveAndEnabled)
+            bodyMotion.DoUpdate();
+        if(blink.isActiveAndEnabled)
+            blink.DoUpdate();
+        if(eyeGaze.isActiveAndEnabled)
+            eyeGaze.DoUpdate();
+        if(lipFlap.isActiveAndEnabled)
+            lipFlap.DoUpdate();
     }
 
     public int GetBlendIndex(string blendName)
