@@ -14,9 +14,11 @@ public class FaceExpressionController : MonoBehaviour
     public Expression CurrentExpression => currentExpression;
 
     [SerializeField]
-    private SkinnedMeshRenderer smugSmileTarget;
+    private SkinnedMeshRenderer confidentSmileTarget;
     [SerializeField]
-    private SkinnedMeshRenderer smileTarget;
+    private SkinnedMeshRenderer genuineSmileTarget;
+    [SerializeField]
+    private SkinnedMeshRenderer mildSurpriseTarget;
     [SerializeField]
     private SkinnedMeshRenderer attentiveTarget;
     [SerializeField]
@@ -41,9 +43,10 @@ public class FaceExpressionController : MonoBehaviour
 
         table = new Dictionary<Expression, ExpressionMap>();
         table.Add(Expression.Default, new ExpressionMap(faceMain.HeadMesh));
-        table.Add(Expression.SmugSmile, new ExpressionMap(smugSmileTarget));
-        table.Add(Expression.Smile, new ExpressionMap(smileTarget));
+        table.Add(Expression.ConfidentSmile, new ExpressionMap(confidentSmileTarget));
+        table.Add(Expression.GenuineSmile, new ExpressionMap(genuineSmileTarget));
         table.Add(Expression.Attentive, new ExpressionMap(attentiveTarget));
+        table.Add(Expression.MildSurprise, new ExpressionMap(mildSurpriseTarget));
         table.Add(Expression.Pout, new ExpressionMap(poutTarget));
         table.Add(Expression.Shock, new ExpressionMap(shockTarget));
     }
@@ -61,9 +64,10 @@ public class FaceExpressionController : MonoBehaviour
     public enum Expression
     {
         Default,
-        SmugSmile,
-        Smile, 
+        ConfidentSmile,
+        GenuineSmile, 
         Attentive, 
+        MildSurprise,
         Pout, 
         Shock,
     }
