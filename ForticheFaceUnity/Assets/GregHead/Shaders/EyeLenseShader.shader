@@ -2,6 +2,8 @@ Shader "Unlit/EyeLensShader"
 {
     Properties
     {
+        _MainTex("Texture", 2D) = "white" {}
+        _Offset("Offset", Vector)  = (0, 0, 0, 0)
     }
         SubShader
     {
@@ -36,6 +38,8 @@ Shader "Unlit/EyeLensShader"
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
+            sampler2D _MainTex;
+            float3 _Offset;
 
             v2f vert(appdata v)
             {
@@ -56,15 +60,19 @@ Shader "Unlit/EyeLensShader"
             fixed4 frag(v2f i) : SV_Target
             {
 
-                float3 viewDir = normalize(i.viewDir);
                 float3 norm = normalize(i.normal);
-                float theDot = dot(norm, viewDir);
+                float3 lightReflect = reflect(normalize(_Offset.xyz), norm);
+                float3 viewDir = normalize(i.viewDir);
+                float theDot = dot(lightReflect, viewDir);
                 float shine = saturate(theDot);
 
-                shine = pow(shine, 500);
-                shine = saturate(shine * 3);
+                shine = pow(shine, 100);
+                shine = saturate(shine * 10);
                 shine = saturate(shine);
-                shine *= .2;
+                shine *= .5;
+                fixed4 col = tex2D(_MainTex, i.uv);
+                return 0;
+                return col;
                 return shine;
             }
             ENDCG

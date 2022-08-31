@@ -7,6 +7,11 @@ public class BodyMotionController : MonoBehaviour
     [SerializeField]
     private Transform hololensCamera;
 
+    private void Start()
+    {
+        
+    }
+
     public void DoUpdate()
     {
         headBone.rotation = hololensCamera.rotation;

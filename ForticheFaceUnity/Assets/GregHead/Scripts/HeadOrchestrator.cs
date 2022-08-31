@@ -30,7 +30,7 @@ public class HeadOrchestrator : MonoBehaviour
             faceExpression.DoUpdate(); // Needs to go first because it stomps all other blends
         if(bodyMotion.isActiveAndEnabled)
             bodyMotion.DoUpdate();
-        if(blink.isActiveAndEnabled)
+        if(blink.isActiveAndEnabled && faceExpression.CurrentExpression == FaceExpressionController.Expression.Default)
             blink.DoUpdate();
         if(eyeGaze.isActiveAndEnabled)
             eyeGaze.DoUpdate();
