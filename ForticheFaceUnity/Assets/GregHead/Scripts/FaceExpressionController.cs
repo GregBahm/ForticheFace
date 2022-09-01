@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class FaceExpressionController : MonoBehaviour
 {
@@ -34,6 +37,7 @@ public class FaceExpressionController : MonoBehaviour
 
     private void Start()
     {
+        keyControls = GetKeyControls();
         faceMain = GetComponent<HeadOrchestrator>();
         currentValues = new MomentumManager[faceMain.HeadMesh.sharedMesh.blendShapeCount];
         for (int i = 0; i < currentValues.Length; i++)
@@ -50,14 +54,50 @@ public class FaceExpressionController : MonoBehaviour
         table.Add(Expression.Pout, new ExpressionMap(poutTarget));
         table.Add(Expression.Shock, new ExpressionMap(shockTarget));
     }
-    
+
+    private KeyControl[] GetKeyControls()
+    {
+        return new KeyControl[]
+        {
+            Keyboard.current.numpad0Key,
+            Keyboard.current.numpad1Key,
+            Keyboard.current.numpad2Key,
+            Keyboard.current.numpad3Key,
+            Keyboard.current.numpad4Key,
+            Keyboard.current.numpad5Key,
+            Keyboard.current.numpad6Key,
+            Keyboard.current.numpad7Key,
+            Keyboard.current.numpad8Key,
+            Keyboard.current.numpad9Key,
+        };
+    }
+
     public void DoUpdate()
     {
+        LookForNumpress();
         table[currentExpression].Set(currentValues, snap, decay);
 
         for (int i = 0; i < currentValues.Length; i++)
         {
             faceMain.HeadMesh.SetBlendShapeWeight(i, currentValues[i].CurrentValue);
+        }
+    }
+    private KeyControl[] keyControls;
+
+
+    private void LookForNumpress()
+    {
+        for (int i = 0; i < keyControls.Length; i++)
+        {
+            if(keyControls[i].wasPressedThisFrame)
+            {
+                Expression expressionTarget = (Expression)(i % table.Count);
+                if (currentExpression == expressionTarget)
+                    currentExpression = Expression.Default;
+                else
+                    currentExpression = expressionTarget;
+                break;
+            }
         }
     }
 

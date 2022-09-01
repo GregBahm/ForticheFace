@@ -102,7 +102,6 @@ Shader "Unlit/HairShader"
                 //hairShineAlpha *= fresnel;
                 col += hairCol * hairShineAlpha;
 
-
                 return col;
             }
             ENDCG
