@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EyeGazeController : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class EyeGazeController : MonoBehaviour
     [SerializeField]
     private Material mat;
 
+    [SerializeField]
+    private Camera avatarCamera;
+
     private HeadOrchestrator headMain;
 
     private EyeBlendPair lookUp;
@@ -49,9 +53,18 @@ public class EyeGazeController : MonoBehaviour
 
     private void UpdateEyeGazeVisuals()
     {
+        DriveFromMouse();
         SetEyeTransforms();
         SetEyeBlendShapes();
         SetMat();
+    }
+
+    private void DriveFromMouse()
+    {
+        Vector2 screenPos = Mouse.current.position.ReadValue();
+        Vector3 viewportPos = avatarCamera.ScreenToViewportPoint(screenPos);
+        leftRight = (viewportPos.x - .5f) * 2;
+        upDown = (viewportPos.y - .5f) * 2;
     }
 
     public void SetGaze(float gazeHeading, float gazePitch)
