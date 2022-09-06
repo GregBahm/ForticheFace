@@ -9,6 +9,7 @@ public class HeadOrchestrator : MonoBehaviour
     private SkinnedMeshRenderer headMesh;
     public SkinnedMeshRenderer HeadMesh => headMesh;
 
+    private UIScripts uiScripts;
     private FaceExpressionController faceExpression;
     private BlinkController blink;
     private EyeGazeController eyeGaze;
@@ -17,6 +18,7 @@ public class HeadOrchestrator : MonoBehaviour
 
     private void Start()
     {
+        uiScripts = GetComponent<UIScripts>();
         faceExpression = GetComponent<FaceExpressionController>();
         blink = GetComponent<BlinkController>();
         eyeGaze = GetComponent<EyeGazeController>();
@@ -26,6 +28,8 @@ public class HeadOrchestrator : MonoBehaviour
 
     private void Update()
     {
+        if (uiScripts.isActiveAndEnabled)
+            uiScripts.DoUpdate();
         if(faceExpression.isActiveAndEnabled)
             faceExpression.DoUpdate(); // Needs to go first because it stomps all other blends
         if(bodyMotion.isActiveAndEnabled)

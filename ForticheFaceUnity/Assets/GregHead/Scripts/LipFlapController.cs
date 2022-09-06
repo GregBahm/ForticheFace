@@ -17,7 +17,7 @@ public class LipFlapController : MonoBehaviour
     private void Start()
     {
         headMain = GetComponent<HeadOrchestrator>();
-        mouthOpen = new BlendWrapper("Mouth_Open", headMain);
+        mouthOpen = new BlendWrapper("Vis_Ae_Ax_Ah_01", headMain);
         mouthRight = new BlendWrapper("Jaw_Chew_Right", headMain);
         mouthLeft = new BlendWrapper("Jaw_Chew_Left", headMain);
         mouthUp = new BlendWrapper("Chin_Raised", headMain);
@@ -25,7 +25,7 @@ public class LipFlapController : MonoBehaviour
 
     public void DoUpdate()
     {
-        bool isPressed = Mouse.current.leftButton.isPressed;
+        bool isPressed = Mouse.current.rightButton.isPressed;
         if (isPressed)
         {
             if(wasPressed)

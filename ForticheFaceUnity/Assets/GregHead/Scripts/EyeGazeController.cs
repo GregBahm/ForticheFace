@@ -20,9 +20,12 @@ public class EyeGazeController : MonoBehaviour
     [SerializeField]
     private float leftRight;
 
+    public float LeftRight { get => leftRight; set => leftRight = value; }
+
     [Range(-1, 1)]
     [SerializeField]
     private float upDown;
+    public float UpDown { get => upDown; set => upDown = value; }
 
     [SerializeField]
     private Material mat;
@@ -57,7 +60,7 @@ public class EyeGazeController : MonoBehaviour
 
     public void DoUpdate()
     {
-        DriveFromMouse();
+        //DriveFromMouse();
         SetHeadOffsets();
         UpdateFinalValues();
         UpdateEyeGazeVisuals();

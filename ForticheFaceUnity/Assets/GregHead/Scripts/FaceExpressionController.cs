@@ -14,7 +14,7 @@ public class FaceExpressionController : MonoBehaviour
 
     [SerializeField]
     private Expression currentExpression;
-    public Expression CurrentExpression => currentExpression;
+    public Expression CurrentExpression { get => currentExpression; set => currentExpression = value; }
 
     [SerializeField]
     private SkinnedMeshRenderer confidentSmileTarget;
