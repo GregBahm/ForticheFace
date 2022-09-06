@@ -17,6 +17,14 @@ public class BodyMotionController : MonoBehaviour
 
     public void DoUpdate()
     {
-        headBone.rotation = Quaternion.Lerp(headBone.rotation, hololensCamera.rotation, smoothing);
+        Quaternion mirroredRot = GetMirrored(hololensCamera.rotation);
+        headBone.rotation = Quaternion.Lerp(headBone.rotation, mirroredRot, smoothing);
+    }
+
+    private Quaternion GetMirrored(Quaternion baseRot)
+    {
+        Vector3 eulers = baseRot.eulerAngles;
+        Vector3 mirroredEulers = new Vector3(eulers.x, -eulers.y, -eulers.z);
+        return Quaternion.Euler(mirroredEulers);
     }
 }
