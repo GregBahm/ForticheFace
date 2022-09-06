@@ -7,6 +7,9 @@ public class BodyMotionController : MonoBehaviour
     [SerializeField]
     private Transform hololensCamera;
 
+    [SerializeField]
+    private float smoothing;
+
     private void Start()
     {
         
@@ -14,6 +17,6 @@ public class BodyMotionController : MonoBehaviour
 
     public void DoUpdate()
     {
-        headBone.rotation = hololensCamera.rotation;
+        headBone.rotation = Quaternion.Lerp(headBone.rotation, hololensCamera.rotation, smoothing);
     }
 }

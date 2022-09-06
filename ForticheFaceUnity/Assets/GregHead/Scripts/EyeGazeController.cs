@@ -30,12 +30,21 @@ public class EyeGazeController : MonoBehaviour
     [SerializeField]
     private Camera avatarCamera;
 
+    [SerializeField]
+    private Transform headJoint;
+
     private HeadOrchestrator headMain;
 
     private EyeBlendPair lookUp;
     private EyeBlendPair lookDown;
     private EyeBlendPair lookLeft;
     private EyeBlendPair lookRight;
+
+    private float finalLeftRightTarget;
+    private float finalUpDownTarget;
+
+    private float finalLeftRight;
+    private float finalUpDown;
 
     private void Start()
     {
@@ -48,23 +57,56 @@ public class EyeGazeController : MonoBehaviour
 
     public void DoUpdate()
     {
+        DriveFromMouse();
+        SetHeadOffsets();
+        UpdateFinalValues();
         UpdateEyeGazeVisuals();
+    }
+
+    private void UpdateFinalValues()
+    {
+        finalLeftRightTarget = leftRight + headHorizontalOffset;
+        finalUpDownTarget = upDown + headVerticalOffset;
+
+        finalLeftRight = Mathf.Lerp(finalLeftRight, finalLeftRightTarget, Time.deltaTime * 25);
+        finalUpDown = Mathf.Lerp(finalUpDown, finalUpDownTarget, Time.deltaTime * 25);
     }
 
     private void UpdateEyeGazeVisuals()
     {
-        DriveFromMouse();
         SetEyeTransforms();
         SetEyeBlendShapes();
         SetMat();
     }
 
+    float headVerticalOffset;
+    float headHorizontalOffset;
+
+    float GetAngle(float baseAngle, float divisor)
+    {
+        if (baseAngle > 180)
+            baseAngle = -360 + baseAngle;
+        return baseAngle / divisor;
+    }
+
+    private void SetHeadOffsets()
+    {
+        float headX = headJoint.rotation.eulerAngles.x;
+        float headY = headJoint.rotation.eulerAngles.y;
+
+        headVerticalOffset = GetAngle(headX, maxUpEyeAngle);
+        headHorizontalOffset = GetAngle(headY, maxHorizontalEyeAngle);
+    }
+
     private void DriveFromMouse()
     {
-        Vector2 screenPos = Mouse.current.position.ReadValue();
-        Vector3 viewportPos = avatarCamera.ScreenToViewportPoint(screenPos);
-        leftRight = (viewportPos.x - .5f) * 2;
-        upDown = (viewportPos.y - .5f) * 2;
+        if (Mouse.current.rightButton.IsPressed())
+        {
+            Vector2 screenPos = Mouse.current.position.ReadValue();
+            Vector3 viewportPos = avatarCamera.ScreenToViewportPoint(screenPos);
+            leftRight = (viewportPos.x - .5f) * 2;
+            upDown = (viewportPos.y - .5f) * 2;
+        }
     }
 
     public void SetGaze(float gazeHeading, float gazePitch)
@@ -86,14 +128,14 @@ public class EyeGazeController : MonoBehaviour
 
     private void SetMat()
     {
-        mat.SetFloat("_UpDown", upDown);
-        mat.SetFloat("_LeftRight", leftRight);
+        mat.SetFloat("_UpDown", finalUpDown);
+        mat.SetFloat("_LeftRight", finalLeftRight);
     }
 
     private void SetEyeTransforms()
     {
-        float horizontalAngle = maxHorizontalEyeAngle * leftRight;
-        float verticalAngle = upDown * maxUpEyeAngle;
+        float horizontalAngle = maxHorizontalEyeAngle * finalLeftRight;
+        float verticalAngle = finalUpDown * maxUpEyeAngle;
         Quaternion rot = Quaternion.Euler(-verticalAngle, -horizontalAngle, 0);
         leftEye.localRotation = rot;
         rightEye.localRotation = rot;
@@ -101,10 +143,10 @@ public class EyeGazeController : MonoBehaviour
 
     private void SetEyeBlendShapes()
     {
-        float leftWeight = Mathf.Max(-leftRight, 0);
-        float rightWeight = Mathf.Max(leftRight, 0);
-        float upWeight = Mathf.Max(upDown, 0);
-        float downWeight = Mathf.Max(-upDown, 0);
+        float leftWeight = Mathf.Max(-finalLeftRight, 0);
+        float rightWeight = Mathf.Max(finalLeftRight, 0);
+        float upWeight = Mathf.Max(finalUpDown, 0);
+        float downWeight = Mathf.Max(-finalUpDown, 0);
 
         lookLeft.ApplyBlend(leftWeight);
         lookRight.ApplyBlend(rightWeight);
