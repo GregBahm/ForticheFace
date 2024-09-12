@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public class FaceExpressionController : MonoBehaviour
 {
@@ -55,20 +53,21 @@ public class FaceExpressionController : MonoBehaviour
         table.Add(Expression.Shock, new ExpressionMap(shockTarget));
     }
 
-    private KeyControl[] GetKeyControls()
+    private KeyCode[] GetKeyControls()
     {
-        return new KeyControl[]
+        return new KeyCode[]
         {
-            Keyboard.current.numpad0Key,
-            Keyboard.current.numpad1Key,
-            Keyboard.current.numpad2Key,
-            Keyboard.current.numpad3Key,
-            Keyboard.current.numpad4Key,
-            Keyboard.current.numpad5Key,
-            Keyboard.current.numpad6Key,
-            Keyboard.current.numpad7Key,
-            Keyboard.current.numpad8Key,
-            Keyboard.current.numpad9Key,
+            KeyCode.Keypad0,
+            KeyCode.Keypad1,
+            KeyCode.Keypad2,
+            KeyCode.Keypad3,
+            KeyCode.Keypad4,
+            KeyCode.Keypad4,
+            KeyCode.Keypad5,
+            KeyCode.Keypad6,
+            KeyCode.Keypad7,
+            KeyCode.Keypad8,
+            KeyCode.Keypad9,
         };
     }
 
@@ -82,14 +81,14 @@ public class FaceExpressionController : MonoBehaviour
             faceMain.HeadMesh.SetBlendShapeWeight(i, currentValues[i].CurrentValue);
         }
     }
-    private KeyControl[] keyControls;
+    private KeyCode[] keyControls;
 
 
     private void LookForNumpress()
     {
         for (int i = 0; i < keyControls.Length; i++)
         {
-            if(keyControls[i].wasPressedThisFrame)
+            if(Input.GetKeyDown(keyControls[i]))
             {
                 Expression expressionTarget = (Expression)(i % table.Count);
                 if (currentExpression == expressionTarget)

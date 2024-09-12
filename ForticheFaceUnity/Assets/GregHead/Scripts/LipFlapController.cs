@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LipFlapController : MonoBehaviour
 {
@@ -25,18 +24,18 @@ public class LipFlapController : MonoBehaviour
 
     public void DoUpdate()
     {
-        bool isPressed = Mouse.current.rightButton.isPressed;
+        bool isPressed = Input.GetMouseButton(1);
         if (isPressed)
         {
             if(wasPressed)
             {
-                Vector2 currentPos = Mouse.current.position.ReadValue();
+                Vector2 currentPos = Input.mousePosition;
                 Vector2 delta = currentPos - startDrag;
                 UpdateMouth(delta);
             }
             else
             {
-                startDrag = Mouse.current.position.ReadValue();
+                startDrag = Input.mousePosition;
             }
         }
         else

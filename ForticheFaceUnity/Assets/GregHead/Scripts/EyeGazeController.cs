@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class EyeGazeController : MonoBehaviour
 {
@@ -103,9 +102,9 @@ public class EyeGazeController : MonoBehaviour
 
     private void DriveFromMouse()
     {
-        if (Mouse.current.rightButton.IsPressed())
+        if (Input.GetMouseButtonDown(1))
         {
-            Vector2 screenPos = Mouse.current.position.ReadValue();
+            Vector2 screenPos = Input.mousePosition;
             Vector3 viewportPos = avatarCamera.ScreenToViewportPoint(screenPos);
             leftRight = (viewportPos.x - .5f) * 2;
             upDown = (viewportPos.y - .5f) * 2;

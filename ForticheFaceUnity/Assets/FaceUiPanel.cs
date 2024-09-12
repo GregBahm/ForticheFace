@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class FaceUiPanel : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class FaceUiPanel : MonoBehaviour
 
     void Update()
     {
-        if(Mouse.current.leftButton.isPressed)
+        if(Input.GetMouseButton(0))
         {
             Vector2 relativePos = GetRelativeMousePosition();
             if (GetIsInBounds(relativePos))
@@ -43,7 +42,7 @@ public class FaceUiPanel : MonoBehaviour
 
     private Vector2 GetRelativeMousePosition()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector2 mousePos = Input.mousePosition;
         Vector2 relativePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(myRec, mousePos, null, out relativePos);
         return relativePos;
