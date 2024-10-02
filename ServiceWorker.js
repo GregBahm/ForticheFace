@@ -1,9 +1,9 @@
-const cacheName = "DefaultCompany-ForticheFaceUnity-0.1";
+const cacheName = "Greg-Greg's Avatar-0.1";
 const contentToCache = [
-    "Build/Builds.loader.js",
-    "Build/Builds.framework.js.gz",
-    "Build/Builds.data.gz",
-    "Build/Builds.wasm.gz",
+    "Build/ForticheFace.loader.js",
+    "Build/ForticheFace.framework.js.br",
+    "Build/ForticheFace.data.br",
+    "Build/ForticheFace.wasm.br",
     "TemplateData/style.css"
 
 ];
