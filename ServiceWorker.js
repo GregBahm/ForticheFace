@@ -1,9 +1,9 @@
 const cacheName = "Greg-Greg's Avatar-0.1";
 const contentToCache = [
     "Build/ForticheFace.loader.js",
-    "Build/ForticheFace.framework.js.br",
-    "Build/ForticheFace.data.br",
-    "Build/ForticheFace.wasm.br",
+    "Build/ForticheFace.framework.js",
+    "Build/ForticheFace.data",
+    "Build/ForticheFace.wasm",
     "TemplateData/style.css"
 
 ];
